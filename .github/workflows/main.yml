@@ -17,7 +17,7 @@ jobs:
           RELEASE_VAR: ${{ github.event.head_commit.message }}
         run: |
           arr=(`echo $RELEASE_VAR | tr ' ' ' '`)
-          echo "RELEASE_VERSION=${{ arr[1] }}" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=${arr[1]}" >> $GITHUB_ENV
 
       - name: Kuberentes (k8s) cli - kubectl
         uses: actions-hub/kubectl@v1.24.0
