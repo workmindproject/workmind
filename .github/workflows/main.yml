@@ -17,14 +17,15 @@ jobs:
           RELEASE_VAR: ${{ github.event.head_commit.message }}
         run: |
           arr=(`echo $RELEASE_VAR | tr ' ' ' '`)
-          echo "RELEASE_VERSION=${arr[1]}" >> $GITHUB_ENV
+          version_name="web=workmindproject/wmo-web:${arr[1]}" 
+          echo "VERSION_NAME=${version_name}" >> $GITHUB_ENV
 
       - name: Kuberentes (k8s) cli - kubectl
         uses: actions-hub/kubectl@v1.24.0
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
-          args: set image deployment/workmind-web web=workmindproject/wmo-web:${RELEASE_VERSION}
+          args: set image deployment/workmind-web ${VERSION_NAME}
 
   release-first:
     runs-on: ubuntu-latest
