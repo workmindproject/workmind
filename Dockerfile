@@ -39,4 +39,4 @@ COPY --from=builder /usr/src/app/dist dist
 
 USER 1
 
-CMD ["node", "dist/main"]
+CMD ["yarn", "start"]
