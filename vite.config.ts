@@ -1,22 +1,15 @@
-import { defineConfig } from "vite";
-import { qwikVite } from "@builder.io/qwik/optimizer";
-import { qwikCity } from "@builder.io/qwik-city/vite";
-import tsconfigPaths from "vite-tsconfig-paths";
-import { partytownVite } from "@builder.io/partytown/utils";
-import { join } from "path";
+import { fileURLToPath, URL } from 'node:url'
 
-export default defineConfig(() => {
-  return {
-    plugins: [
-      qwikCity(),
-      qwikVite(),
-      tsconfigPaths(),
-      partytownVite({ dest: join(__dirname, "public", "~partytown") }),
-    ],
-    preview: {
-      headers: {
-        "Cache-Control": "public, max-age=600",
-      },
-    },
-  };
-});
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue(), vueJsx()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
+})

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: workmind-web
+  labels:
+    app.kubernetes.io/name: workmind-web
+    app.kubernetes.io/instance: workmind-web
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: workmind-web
+    app.kubernetes.io/instance: workmind-web

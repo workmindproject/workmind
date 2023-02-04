@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workmind-web
+  labels:
+    app.kubernetes.io/name: workmind-web
+    app.kubernetes.io/instance: workmind-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: workmind-web
+      app.kubernetes.io/instance: workmind-web
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: workmind-web
+        app.kubernetes.io/instance: workmind-web
+    spec:
+      imagePullSecrets:
+        - name: dockersecret      
+      serviceAccountName: workmind-web
+      securityContext:
+        {}
+      containers:
+        - name: web
+          securityContext:
+            {}
+          image: "workmindproject/wmo-web:latest"
+          imagePullPolicy: IfNotPresent
+          env:         
+          - name: APP_NAME
+            value: "workmind-web"    
+          - name: APP_SECRET
+            value: "89116e9e-3f42-4b54-bd07-060b269fde2f"
+          - name: HOST
+            value: "0.0.0.0"
+          - name: PORT
+            value: "8080"
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP  
+          readinessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 10        
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi

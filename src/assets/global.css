@@ -1,0 +1,205 @@
+/**
+ * WHAT IS THIS FILE?
+ *
+ * Globally applied styles. No matter which components are in the page or matching route,
+ * the styles in here will be applied to the Document, without any sort of CSS scoping.
+ *
+ */
+
+:root {
+  --vt-c-white: #ffffff;
+  --vt-c-white-soft: #f8f8f8;
+  --vt-c-white-mute: #f2f2f2;
+
+  --vt-c-black: #181818;
+  --vt-c-black-soft: #222222;
+  --vt-c-black-mute: #282828;
+
+  --vt-c-indigo: #2c3e50;
+
+  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
+  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
+  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
+  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+
+  --vt-c-text-light-1: var(--vt-c-indigo);
+  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+  --vt-c-text-dark-1: var(--vt-c-white);
+  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+}
+
+/* Action Required! 
+------------------------------------------------
+You must add the next lines into global.css
+-------------------------------------  */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: PoppinsBlack;
+  src: url("../Poppins/Poppins-Black.ttf");
+}
+@font-face {
+  font-family: PoppinsBold;
+  src: url("../Poppins/Poppins-Bold.ttf");
+}
+@font-face {
+  font-family: PoppinsExtraBold;
+  src: url("../Poppins/Poppins-ExtraBold.ttf");
+}
+@font-face {
+  font-family: PoppinsExtraLight;
+  src: url("../Poppins/Poppins-ExtraLight.ttf");
+}
+@font-face {
+  font-family: PoppinsItalic;
+  src: url("../Poppins/Poppins-Italic.ttf");
+}
+@font-face {
+  font-family: PoppinsLight;
+  src: url("../Poppins/Poppins-Light.ttf");
+}
+@font-face {
+  font-family: PoppinsMedium;
+  src: url("../Poppins/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: Poppins;
+  src: url("../Poppins/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: PoppinsRegular;
+  src: url("../Poppins/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: PoppinsThin;
+  src: url("../Poppins/Poppins-Thin.ttf");
+}
+@font-face {
+  font-family: PoppinsSemiBold;
+  src: url("../Poppins/Poppins-SemiBold.ttf");
+}
+
+
+
+/* Optional! 
+------------------------------------------------
+You must add the next lines into global.css
+-------------------------------------  */
+
+body,
+html {
+  color-scheme: light;
+}
+
+/* body {
+  background-color: #fafafa;
+  padding: 20px 20px 40px 20px;
+} */
+
+/* main {
+  max-width: 760px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 130px -50px var(--qwik-light-purple);
+  overflow: hidden;
+} */
+
+h1,
+h2 {
+  margin: 0 0 5px 0;
+}
+
+.lightning {
+  filter: hue-rotate(180deg);
+}
+
+/* section {
+  padding: 20px;
+  border-bottom: 10px solid var(--qwik-dark-blue);
+} */
+
+/* ul {
+  list-style-type: square;
+  margin: 5px 0 30px 0;
+  padding-left: 25px;
+}
+
+li {
+  padding: 8px 0;
+}
+
+li::marker {
+  color: var(--qwik-light-blue);
+}
+
+a,
+a:visited {
+  color: var(--qwik-dark-blue);
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+table.commands {
+  margin: 0 0 30px 0;
+}
+
+.commands td {
+  padding: 5px;
+}
+
+.commands td:first-child {
+  white-space: nowrap;
+  padding-right: 20px;
+}
+
+code {
+  font-family: Menlo, Monaco, Courier New, monospace;
+  font-size: 0.9em;
+  background-color: rgb(224, 224, 224);
+  padding: 2px 4px;
+  border-radius: 3px;
+  border-bottom: 2px solid #bfbfbf;
+} */
+
+footer {
+  padding: 15px;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* a.mindblow {
+  margin: 0 auto;
+  display: block;
+  background: var(--qwik-light-purple);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 0;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  width: fit-content;
+  border-bottom: 4px solid black;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🤯</text></svg>")
+      16 0,
+    auto; 
+} */
+
+/* a.mindblow:hover {
+  border-bottom-width: 0px;
+  margin-bottom: 4px;
+  transform: translateY(4px);
+} */
