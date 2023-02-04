@@ -12,8 +12,9 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions-hub/kubectl@master
+      - name: Kuberentes (k8s) cli - kubectl
+        uses: actions-hub/kubectl@v1.24.0
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
-          args: ls -la
+          args: apply -f ./k8s
