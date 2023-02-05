@@ -1,17 +1,14 @@
-# stage 1: PREPARE
-# stage 1.1: PREPARE ENV
-FROM whthduck/node-ts:16-alpine AS runner 
+# stage 1: PREPARE ENV
+FROM whthduck/node-ts:16-alpine AS dependencies 
 
 WORKDIR /usr/src/app
 
 COPY package.json ./
 
-RUN yarn --non-interactive --prod --silent && node-prune
+RUN yarn --non-interactive --silent && node-prune
 
 # stage 2: BUILD FROM SOURCE
-FROM runner AS builder 
-
-RUN yarn 
+FROM dependencies AS builder 
 
 COPY . .
 
@@ -27,9 +24,9 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 
-RUN yarn global add vite
+COPY vite.config.ts ./
 
-COPY --from=runner /usr/src/app/node_modules node_modules
+COPY --from=dependencies /usr/src/app/node_modules node_modules
 
 COPY --from=builder /usr/src/app/dist dist
 
