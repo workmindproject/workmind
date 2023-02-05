@@ -14,13 +14,14 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
+
       - name: "Set version"
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
         with:
           create-tag: false
 
-      - name: Kuberentes (k8s) cli - kubectl
+      - name: Apply new version
         uses: actions-hub/kubectl@v1.24.0
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
@@ -35,9 +36,25 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v3
-      - name: Kuberentes (k8s) cli - kubectl
+        with:
+          fetch-depth: 2
+          
+      - name: "Set version"
+        id: version
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: false
+
+      - name: Apply all manifest
         uses: actions-hub/kubectl@v1.24.0
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
           args: apply -f ./k8s
+
+      - name: Apply new version
+        uses: actions-hub/kubectl@v1.24.0
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: set image deployment/workmind-web web=workmindproject/wmo-web:${{ steps.version.outputs.current-version }}
