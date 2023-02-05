@@ -27,7 +27,7 @@ spec:
           securityContext:
             {}
           image: "workmindproject/wmo-web:latest"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:         
           - name: APP_NAME
             value: "workmind-web"    

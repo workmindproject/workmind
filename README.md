@@ -63,5 +63,6 @@ yarn image:podman
 ```sh
 git add .
 git commit -a -m "release:"
+git push
 ```
 * Lưu ý : deploy app theo version của package.json

@@ -11,5 +11,9 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  preview: {
+    port: Number(process.env.PORT),
+    strictPort: true,
+  },
 })
