@@ -17,6 +17,8 @@ jobs:
       - name: "Set version"
         id: version
         uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: false
 
       - name: Kuberentes (k8s) cli - kubectl
         uses: actions-hub/kubectl@v1.24.0
