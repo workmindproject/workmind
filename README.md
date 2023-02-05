@@ -50,3 +50,18 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+## How to deploy
+
+### 1. Build and release image
+```sh
+yarn image:podman workmindproject/wmo-web:$version
+```
+* $version: \<sprint\>.\<feature\>.\<patch\> (example: 1.0.2-5)
+
+### 2. Release by git commit
+```sh
+git add .
+git commit -a -m "release: $version"
+```
+* $version: this version will be deploy (example: 1.0.2-5)

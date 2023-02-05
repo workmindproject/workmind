@@ -27,6 +27,8 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 
+RUN yarn global add vite
+
 COPY --from=runner /usr/src/app/node_modules node_modules
 
 COPY --from=builder /usr/src/app/dist dist
