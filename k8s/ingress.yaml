@@ -6,14 +6,14 @@ metadata:
     app.kubernetes.io/name: workmind-web
     app.kubernetes.io/instance: workmind-web
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
     external-dns.alpha.kubernetes.io/ttl: 5m
     kubernetes.io/ingress.class: nginx
 spec:
-  tls:
-    - hosts:
-        - "productive.workmind.app"
-      secretName: workmind-web-tls
+  # tls:
+  #   - hosts:
+  #       - "productive.workmind.app"
+  #     secretName: workmind-web-tls
   rules:
     - host: "productive.workmind.app"
       http:
