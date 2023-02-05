@@ -27,9 +27,9 @@ jobs:
         with:
           args: set image deployment/workmind-web web=workmindproject/wmo-web:${{ steps.version.outputs.current-version }}
 
-  release-first:
+  k8s:
     runs-on: ubuntu-latest
-    if: "startsWith(github.event.head_commit.message, 'first:')"
+    if: "startsWith(github.event.head_commit.message, 'k8s:')"
     permissions: 
       contents: read
       packages: write
