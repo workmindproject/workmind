@@ -10,11 +10,11 @@ const props = defineProps<{
 const emit = defineEmits<{
     (event: 'update:email', v: string): void
     (event: 'update:password', v: string): void
-    (event: 'on-value', v: { email: string, password: string }): void
+    (event: 'on-submit', v: { email: string, password: string }): void
 }>();
 
 function submitHandler() {
-    emit('on-value', { email: props.email || '', password: props.password || '' })
+    emit('on-submit', { email: props.email || '', password: props.password || '' })
 }
 </script>
 

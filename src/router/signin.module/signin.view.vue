@@ -48,8 +48,13 @@ const data = ref({ step: SIGNIN_STATE['email'], email: '', password: '', remembe
           alt="Phone image" />
       </div>
       <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
-        <EmailForm v-model:email="data.email" v-model:remember-me="data.rememberMe"></EmailForm>
-        <!-- <PasswordForm v-model:email="data.email" v-model:password="data.password"></PasswordForm> -->
+        <EmailForm v-model:email="data.email" v-model:remember-me="data.rememberMe" @on-submit="() => {
+          data.step = SIGNIN_STATE['password']
+        }"></EmailForm>
+
+        <!-- <PasswordForm v-model:email="data.email" v-model:password="data.password" @on-submit="() => {
+          data.step = SIGNIN_STATE['api']
+        }"></PasswordForm> -->
       </div>
       <div class="flex justify-center items-center mt-6">
         <a href="/signup" target="_blank"

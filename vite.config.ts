@@ -14,8 +14,12 @@ export default defineConfig(({mode})=>{
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     },
-    host: env.HOST || '0.0.0.0',
+    server: {
+      host: env.HOST || '0.0.0.0',
+      strictPort: true,
+    },
     preview: {
+      host: env.HOST || '0.0.0.0',
       port: Number(env.PORT || 4173),
       strictPort: true,
     },

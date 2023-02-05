@@ -11,11 +11,11 @@ const props = defineProps<{
 const emit = defineEmits<{
     (event: 'update:email', v: string): void
     (event: 'update:remember-me', v: boolean): void
-    (event: 'on-email', v: string): void
+    (event: 'on-submit', v: string): void
 }>();
 
 function submitHandler() {
-    emit('on-email', props.email || '')
+    emit('on-submit', props.email || '')
 }
 </script>
 
