@@ -10,8 +10,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "image": "yarn image:docker",
-    "image:podman": "podman build -t wmo-web . && podman push wmo-web",
+    "image:podman": "podman build -t wmo-web . && podman push wmo-web workmindproject/wmo-web:${npm_package_version}",
     "image:docker": "docker build -t wmo-web . && docker push wmo-web",
     "start": "vite preview"
   },

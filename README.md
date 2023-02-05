@@ -55,13 +55,13 @@ npm run lint
 
 ### 1. Build and release image
 ```sh
-yarn image:podman workmindproject/wmo-web:$version
+yarn image:podman
 ```
-* $version: \<sprint\>.\<feature\>.\<patch\> (example: 1.0.2-5)
+* Lưu ý : image version sẽ theo version của package.json
 
 ### 2. Release by git commit
 ```sh
 git add .
-git commit -a -m "release: $version"
+git commit -a -m "release:"
 ```
-* $version: this version will be deploy (example: 1.0.2-5)
+* Lưu ý : deploy app theo version của package.json
