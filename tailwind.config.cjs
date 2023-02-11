@@ -2,7 +2,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  content: ["./index.html","./src/**/*.{vue,js,ts,jsx,tsx,mdx}"],
+  content: ["./index.html","./src/**/*.{vue,js,ts,jsx,tsx,mdx}", "./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {
       fontFamily: {
@@ -13,5 +13,6 @@ module.exports = {
   plugins: [
     // Or with a custom prefix:
     require("@headlessui/tailwindcss")({ prefix: "ui" }),
+    require('flowbite/plugin'),
   ],
 };

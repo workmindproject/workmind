@@ -1,6 +1,6 @@
 {
   "name": "workmind-web",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -15,11 +15,14 @@
     "start": "vite preview"
   },
   "dependencies": {
-    "@headlessui/tailwindcss": "^0.1.2",
-    "@headlessui/vue": "^1.7.8",
+    "@headlessui/tailwindcss": "0.1.2",
+    "@headlessui/vue": "1.7.8",
+    "firebase": "9.17.1",
+    "flowbite": "^1.6.3",
     "pinia": "~2.0",
     "vue": "~3.2",
-    "vue-router": "~4.1"
+    "vue-router": "~4.1",
+    "vuefire": "3.0.1"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
