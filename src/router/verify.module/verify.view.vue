@@ -5,7 +5,7 @@ import SuccessVerifyCard from "@/components/verify/success.verify-card.vue";
 import ErrorVerifyCard from "@/components/verify/error.verify-card.vue";
 import Loading from "@/components/loading/loading.vue";
 import { useVerifyStore } from "./verify.store";
-import { ErrorCode } from "@/components/error-code/errors";
+import { ErrorCode } from "@/components/translate/error.translate";
 
 const router = useRouter();
 const route = useRoute();

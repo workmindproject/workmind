@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config.textColor} */
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
@@ -8,6 +9,18 @@ module.exports = {
       fontFamily: {
         sans: ["Poppins", ...defaultTheme.fontFamily.sans],
       },
+
+      
+    },
+    textColor: {
+      'primary': '#F8C011',
+      'secondary': '#DBA521',
+      'content': '#20262E'
+    },
+    colors: {
+      'primary': '#F8C011',
+      'secondary': '#DBA521',
+      'content': '#20262E'
     },
   },
   plugins: [
@@ -15,4 +28,4 @@ module.exports = {
     require("@headlessui/tailwindcss")({ prefix: "ui" }),
     require('flowbite/plugin'),
   ],
-};
+} 

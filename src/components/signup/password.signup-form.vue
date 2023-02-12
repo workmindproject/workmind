@@ -4,6 +4,8 @@ export default { name: "PasswordSignupForm" };
 <script setup lang="ts">
 import { TransitionRoot } from "@headlessui/vue";
 import { ref, reactive, watch } from "vue";
+import { $tsl } from "../translate/content.translate";
+import { ErrorCode } from "../translate/error.translate";
 
 const props = defineProps<{
   password?: string;
@@ -26,7 +28,8 @@ watch(props, (newValue, oldValue) => {
   else errs.email = "";
   if (!props.password) errs.password = "empty";
   else errs.password = "";
-  if (password2.value && props.password !== password2.value) errs.password2 = "diff-password";
+  if (password2.value && props.password !== password2.value)
+    errs.password2 = "diff-password";
   else errs.password2 = "";
 });
 
@@ -66,18 +69,21 @@ function submitEditEmail() {
     >
       <div class="grid grid-flow-row gap-10">
         <!-- Email input -->
-        <div class="grid grid-flow-row justify-center">
-          <!-- <p class="mt-2 text-center text-sm text-gray-600">Đăng ký tài khoản</p> -->
-
-          <input
-            type="text"
-            :value="email"
-            @focus="() => submitEditEmail()"
-            class="block w-48 p-2 text-gray-900 border text-xs text-center border-gray-300 rounded-xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="email"
-            required
-            tabindex="-1"
-          />
+        <div class="grid grid-flow-row gap-3">
+          <h1 class="text-xl text-center text-bold">
+            {{ $tsl("Wellcome") }}
+          </h1>
+          <div class="grid grid-flow-row justify-center">
+            <input
+              type="text"
+              :value="email"
+              @focus="() => submitEditEmail()"
+              class="block w-64 px-3 py-2 text-content border text-center border-gray-300 rounded-xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="email"
+              required
+              tabindex="-1"
+            />
+          </div>
         </div>
 
         <div class="grid grid-flow-row gap-3">
@@ -87,15 +93,20 @@ function submitEditEmail() {
               type="password"
               :value="password"
               @input="(e: any) => emit('update:password', e.target.value)"
-              class="block w-full p-4 text-gray-900 border border-gray-300 rounded-xl bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Password"
+              class="block w-full p-4 text-content border rounded-xl bg-gray-50 sm:text-md focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-secondary dark:focus:border-secondary"
+              :class="
+                errs.password
+                  ? 'border-red-600 dark:border-red-500'
+                  : 'border-gray-300 dark:border-gray-600'
+              "
+              :placeholder="$tsl('Enter your password')"
               minLength="{6}"
               required
             />
             <span
               v-if="errs.password === 'empty'"
               class="mt-2 text-sm text-red-600 dark:text-red-500"
-              >Password is required</span
+              >{{ ErrorCode("Password is required") }}</span
             >
           </div>
 
@@ -103,20 +114,25 @@ function submitEditEmail() {
             <input
               type="password"
               v-model="password2"
-              class="block w-full p-4 text-gray-900 border border-gray-300 rounded-xl bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Re enter password"
+              class="block w-full p-4 text-content border rounded-xl bg-gray-50 sm:text-md focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-secondary dark:focus:border-secondary"
+              :class="
+                errs.password2
+                  ? 'border-red-600 dark:border-red-500'
+                  : 'border-gray-300 dark:border-gray-600'
+              "
+              :placeholder="$tsl('Re enter your password')"
               minLength="{6}"
               required
             />
             <span
               v-if="errs.password2 === 'empty'"
               class="mt-2 text-sm text-red-600 dark:text-red-500"
-              >Password is required</span
+              >{{ ErrorCode("Password is required") }}</span
             >
             <span
               v-if="errs.password2 === 'diff-password'"
               class="mt-2 text-sm text-red-600 dark:text-red-500"
-              >Please make sure password match</span
+              >{{ ErrorCode("Please make sure password match") }}</span
             >
           </div>
         </div>
@@ -124,11 +140,11 @@ function submitEditEmail() {
         <!-- Submit button -->
         <button
           type="submit"
-          class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+          class="inline-block px-7 py-3 font-bold text-lg leading-snug uppercase rounded-full shadow-md bg-primary hover:bg-secondary focus:bg-secondary focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-full"
           data-mdb-ripple="true"
           data-mdb-ripple-color="light"
         >
-          Next
+          {{ $tsl("Next") }}
         </button>
       </div>
     </TransitionRoot>

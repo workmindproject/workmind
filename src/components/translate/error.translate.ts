@@ -244,6 +244,8 @@ const errors: Record<string, string> = {
   "auth/already-initialized":
     "initializeAuth() has already been called with different options. To avoid this error, call initializeAuth() with the same options as when it was originally called, or call getAuth() to return the already initialized instance.",
   "Email is required": "Email is required",
+  "Password is required": "Password is required",
+  "Please make sure password match": "Please make sure password match"
 };
 
 export function ErrorCode(key: string) {

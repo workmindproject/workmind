@@ -4,6 +4,9 @@ export default { name: "ErrorSignupForm" };
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 import { TransitionRoot } from "@headlessui/vue";
+import { $tsl } from "@/components/translate/content.translate";
+import IconInfo from "../icons/IconInfo.vue";
+import IconGmail from "../icons/IconGmail.vue";
 
 const props = defineProps<{
   msg?: string;
@@ -38,20 +41,8 @@ function submitGoogleHandler() {
         class="flex p-4 text-sm text-red-800 border border-red-300 rounded-xl bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
         role="alert"
       >
-        <svg
-          aria-hidden="true"
-          class="flex-shrink-0 inline w-5 h-5 mr-3"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
-        <span class="sr-only">Info</span>
+        <IconInfo></IconInfo>
+        <span class="sr-only">{{ $tsl("Info") }}</span>
         <div>
           {{ props.msg }}
         </div>
@@ -60,32 +51,37 @@ function submitGoogleHandler() {
       <div class="grid grid-flow-row gap-3">
         <button
           type="submit"
-          class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+          class="inline-block w-full px-7 py-3 bg-primary text-context font-bold text-lg leading-snug uppercase rounded-full shadow hover:bg-secondary focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
           data-mdb-ripple="true"
           data-mdb-ripple-color="light"
           @click="submitTryAgain"
         >
-          Try again
+          {{ $tsl("Try again") }}
         </button>
 
-        <div
+        <!-- <div
           class="flex items-center before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5"
         >
-          <p class="text-center font-semibold mx-4 mb-0">OR</p>
+          <p class="text-center font-semibold mx-4 mb-0">
+            {{ $tsl("OR Sign up with") }}
+          </p>
         </div>
 
-        <a
-          class="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded-full shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
-          style="background-color: #3b5998"
-          role="button"
-          data-mdb-ripple="true"
-          data-mdb-ripple-color="light"
-          @click="submitGoogleHandler"
-        >
-          <!-- Gmail -->
-          <IconGmail></IconGmail>
-          Signup with Gmail
-        </a>
+        <div class="flex justify-center items-center">
+          <a
+            class="w-fit px-7 py-3 text-lg text-secondary hover:text-primary rounded-full shadow border border-secondary hover:border-primary focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+            role="button"
+            data-mdb-ripple="true"
+            data-mdb-ripple-color="light"
+            @click="submitGoogleHandler"
+          >
+            <div class="flex justify-center items-center gap-3">
+              <IconGmail></IconGmail>
+              <p class="text-sm">{{ $tsl("Google") }}</p>
+            </div>
+          </a>
+        </div> -->
+
       </div>
     </div>
   </TransitionRoot>
