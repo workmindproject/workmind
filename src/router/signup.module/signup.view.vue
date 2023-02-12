@@ -33,13 +33,13 @@ watch(route, (newValue, oldValue) => {
 
 watch(state, (newValue, oldValue) => {
   if (state.value === STATE["signup"] || state.value === STATE["email"]) {
-    component.value = EmailSignupForm.__hmrId;
+    component.value = EmailSignupForm.name;
     router.push(STATE["signup"]);
   } else if (!data.value.email) {
     errs.msg = "Missing email address";
-    component.value = ErrorSignupForm.__hmrId;
+    component.value = ErrorSignupForm.name;
   } else if (state.value === STATE["password"]) {
-    component.value = PasswordSignupForm.__hmrId;
+    component.value = PasswordSignupForm.name;
     router.push(STATE["password"]);
   } else if (state.value === STATE["verify"]) {
     createUser();
@@ -48,18 +48,18 @@ watch(state, (newValue, oldValue) => {
 
 async function createUser() {
   try {
-    component.value = Loading.__hmrId;
+    component.value = Loading.name;
     await signupStore.createUser(data.value.email, data.value.password);
-    component.value = VerifySignupForm.__hmrId;
+    component.value = VerifySignupForm.name;
     router.push(STATE["verify"]);
   } catch (e: any) {
     console.error(e);
     errs.msg = ErrorCode(e.code) || e.code;
-    component.value = ErrorSignupForm.__hmrId;
+    component.value = ErrorSignupForm.name;
   }
 }
 
-component.value = EmailSignupForm.__hmrId;
+component.value = EmailSignupForm.name;
 state.value = route.query.step
   ? `/signup?step=${route.query.step}`
   : STATE["signup"];
@@ -81,10 +81,10 @@ state.value = route.query.step
       <div class="md:w-8/12 lg:w-5/12">
         <div class="shadow px-14 py-16 rounded-xl">
           <div class="grid grid-flow-row gap-5">
-            <Loading v-if="component === Loading.__hmrId"></Loading>
+            <Loading v-if="component === Loading.name"></Loading>
 
             <ErrorSignupForm
-              v-if="component === ErrorSignupForm.__hmrId"
+              v-if="component === ErrorSignupForm.name"
               :msg="errs.msg"
               @on-try-again="() => (state = STATE['signup'])"
               @on-signup-google="
@@ -95,12 +95,12 @@ state.value = route.query.step
             ></ErrorSignupForm>
 
             <VerifySignupForm
-              v-if="component === VerifySignupForm.__hmrId"
+              v-if="component === VerifySignupForm.name"
               @on-signin="() => router.push('/signin')"
             ></VerifySignupForm>
 
             <EmailSignupForm
-              v-if="component === EmailSignupForm.__hmrId"
+              v-if="component === EmailSignupForm.name"
               v-model:email="data.email"
               @on-submit="() => (state = STATE['password'])"
               @on-signup-google="
@@ -111,7 +111,7 @@ state.value = route.query.step
             ></EmailSignupForm>
 
             <PasswordSignupForm
-              v-if="component === PasswordSignupForm.__hmrId"
+              v-if="component === PasswordSignupForm.name"
               v-model:email="data.email"
               v-model:password="data.password"
               @on-submit="() => (state = STATE['verify'])"

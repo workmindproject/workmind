@@ -4,9 +4,11 @@ import { useCurrentUser, useFirebaseAuth } from "vuefire";
 
 export const useAuthStore = defineStore("auth", () => {
   // const auth = useFirebaseAuth();
-  const user = computed(() => {
-    return useCurrentUser();
-  });
+  const currentUser = () => {
+    const user = useCurrentUser();
+    console.log("user:", user.value);
+    return user.value;
+  };
 
-  return { user };
+  return { currentUser };
 });

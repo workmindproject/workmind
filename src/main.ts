@@ -7,7 +7,6 @@ import "./assets/global.css";
 import App from "./App.vue";
 import router from "./router";
 import { firebaseApp } from "./plugins/firebase";
-import { usePopState } from "./plugins/popstate";
 
 
 const app = createApp(App);

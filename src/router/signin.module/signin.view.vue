@@ -4,7 +4,6 @@ import { TransitionRoot } from "@headlessui/vue";
 import { reactive, ref, watch } from "vue";
 import router from "..";
 import { useSigninStore } from "./signin.store";
-import { useAuthStore } from "@/stores/auth.store";
 
 const signinStore = useSigninStore();
 const errs = reactive({ msg: "", email: "", password: "" });

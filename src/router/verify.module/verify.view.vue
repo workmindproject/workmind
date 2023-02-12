@@ -21,16 +21,16 @@ const errs = reactive({ msg: "" });
 
 async function verifyHandler() {
   try {
-    component.value = Loading.__hmrId;
+    component.value = Loading.name;
     await verifyStore.verifyLink(actionCode);
-    component.value = SuccessVerifyCard.__hmrId;
+    component.value = SuccessVerifyCard.name;
   } catch (e: any) {
     console.error(e);
     errs.msg = ErrorCode(e.code) || e.code;
-    component.value = ErrorVerifyCard.__hmrId;
+    component.value = ErrorVerifyCard.name;
   }
 }
-component.value = Loading.__hmrId;
+component.value = Loading.name;
 
 setTimeout(() => {
   verifyHandler();
@@ -49,17 +49,17 @@ setTimeout(() => {
           class="justify-center items-center w-full md:inset-0 h-modal md:h-full"
         >
           <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-            <Loading v-if="component === Loading.__hmrId"></Loading>
+            <Loading v-if="component === Loading.name"></Loading>
 
             <SuccessVerifyCard
-              v-if="component === SuccessVerifyCard.__hmrId"
+              v-if="component === SuccessVerifyCard.name"
               @on-signin="
                 () => router.push({ path: '/signin', query: { lang } })
               "
             ></SuccessVerifyCard>
 
             <ErrorVerifyCard
-              v-if="component === ErrorVerifyCard.__hmrId"
+              v-if="component === ErrorVerifyCard.name"
               :msg="errs.msg"
               @on-try-again="() => router.push('/signup')"
             ></ErrorVerifyCard>

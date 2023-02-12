@@ -20,10 +20,9 @@ const router = createRouter({
       meta: { isPublic: true },
       beforeEnter: async (to, from, next) => {
         const authStore = useAuthStore();
-        const user = await authStore.user;
-        console.log(1,user)
-        if (user) next({ name: "home" });
-        else next();
+        const user = await authStore.currentUser();
+        if (!user) next();
+        else next({ name: "home" });
       },
     },
     {
@@ -58,7 +57,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
-  const user = await authStore.user;
+  const user = await authStore.currentUser();
   if (to.meta.isPublic) next();
   else if (!user) next({ name: "signin" });
   else next();
