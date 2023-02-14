@@ -52,7 +52,7 @@ npm run lint
 ```
 
 ## How to deploy
-
+ 
 ### 1. Build and release image
 ```sh
 yarn image:podman
