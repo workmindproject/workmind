@@ -38,6 +38,18 @@ const router = createRouter({
       meta: { isPublic: true },
     },
     {
+      path: "/forgot-password",
+      name: "forgot-password",
+      component: () => import("./forgot-pass.module/forgot-pass.view.vue"),
+      meta: { isPublic: true },
+    },
+    {
+      path: "/confirm-password",
+      name: "confirm-password",
+      component: () => import("./forgot-pass.module/confirm-pass.view.vue"),
+      meta: { isPublic: true },
+    },
+    {
       path: "/",
       name: "home",
       component: () => import("./tasks.module/tasks.view.vue"),

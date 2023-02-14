@@ -1,31 +1,29 @@
 <script lang="ts">
-export default { name: "PasswordSignupForm" };
+export default { name: "PasswordForgotPass" };
 </script>
 <script setup lang="ts">
 import { TransitionRoot } from "@headlessui/vue";
 import { ref, reactive, watch } from "vue";
-import { $tsl } from "../translate/content.translate";
-import { ErrorCode } from "../translate/error.translate";
+import { $tsl } from "@/components/translate/content.translate";
+import { ErrorCode } from "@/components/translate/error.translate";
+import IconForgotPass from "../icons/IconForgotPass.vue";
 
 const props = defineProps<{
   password?: string;
-  email?: string;
+  // email?: string;
 }>();
 
 const password2 = ref("");
 
 const emit = defineEmits<{
-  (event: "update:email", v: string): void;
+  // (event: "update:email", v: string): void;
   (event: "update:password", v: string): void;
-  (event: "on-submit", v: { email: string; password: string }): void;
-  (event: "on-edit-email"): void;
+  (event: "on-submit", v: { password: string }): void;
 }>();
 
-const errs = reactive({ email: "", password: "", password2: "" });
+const errs = reactive({ password: "", password2: "" });
 
 watch(props, (newValue, oldValue) => {
-  if (!props.email) errs.email = "empty";
-  else errs.email = "";
   if (!props.password) errs.password = "empty";
   else errs.password = "";
   if (password2.value && props.password !== password2.value)
@@ -40,18 +38,12 @@ watch(password2, (newValue, oldValue) => {
 });
 
 function submitHandler() {
-  if (errs.email) return;
   if (errs.password) return;
   if (errs.password2) return;
 
   emit("on-submit", {
-    email: props.email || "",
     password: props.password || "",
   });
-}
-
-function submitEditEmail() {
-  emit("on-edit-email");
 }
 </script>
 
@@ -68,22 +60,18 @@ function submitEditEmail() {
       leave-to="translate-x-full opacity-0"
     >
       <div class="grid grid-flow-row gap-10">
-        <!-- Email input -->
         <div class="grid grid-flow-row gap-3">
-          <h1 class="text-xl text-center text-bold">
-            {{ $tsl("Hi,") }}
-          </h1>
-          <div class="grid grid-flow-row justify-center">
-            <input
-              type="text"
-              :value="email"
-              @focus="() => submitEditEmail()"
-              class="block w-64 px-3 py-2 text-content border text-center border-gray-300 rounded-xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="email"
-              required
-              tabindex="-1"
-            />
+          <div>
+            <h1 class="text-4xl font-bold">{{ $tsl("Reset Password") }}</h1>
           </div>
+
+          <p>
+            {{
+              $tsl(
+                "Your new password must be different from three previous passwords."
+              )
+            }}
+          </p>
         </div>
 
         <div class="grid grid-flow-row gap-3">
@@ -144,7 +132,7 @@ function submitEditEmail() {
           data-mdb-ripple="true"
           data-mdb-ripple-color="light"
         >
-          {{ $tsl("Next") }}
+          {{ $tsl("Reset Password") }}
         </button>
       </div>
     </TransitionRoot>

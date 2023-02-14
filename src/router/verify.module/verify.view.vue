@@ -6,6 +6,8 @@ import ErrorVerifyCard from "@/components/verify/error.verify-card.vue";
 import Loading from "@/components/loading/loading.vue";
 import { useVerifyStore } from "./verify.store";
 import { ErrorCode } from "@/components/translate/error.translate";
+import DefaultTopbar from "@/components/nav/default.topbar.vue";
+import { $tsl } from "@/components/translate/content.translate";
 
 const router = useRouter();
 const route = useRoute();
@@ -38,31 +40,29 @@ setTimeout(() => {
 </script>
 
 <template>
-  <div class="container h-screen max-w-screen-xl m-auto">
-    <div
-      class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800"
-    >
-      <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
-        <div
-          tabindex="-1"
-          aria-hidden="true"
-          class="justify-center items-center w-full md:inset-0 h-modal md:h-full"
-        >
-          <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-            <Loading v-if="component === Loading.name"></Loading>
+  <div class="h-screen m-auto text-content">
+    <div class="grid grid-flow-row md:gap-20">
+      <DefaultTopbar></DefaultTopbar>
 
-            <SuccessVerifyCard
-              v-if="component === SuccessVerifyCard.name"
-              @on-signin="
-                () => router.push({ path: '/signin', query: { lang } })
-              "
-            ></SuccessVerifyCard>
+      <div class="flex justify-center items-center flex-wrap">
+        <div class="max-w-[480px] min-w-xs md:w-8/12 lg:w-5/12">
+          <div class="md:shadow px-8 py-16 md:px-14 md:py-16 rounded-xl">
+            <div class="grid grid-flow-row gap-10">
+              <Loading v-if="component === Loading.name"></Loading>
 
-            <ErrorVerifyCard
-              v-if="component === ErrorVerifyCard.name"
-              :msg="errs.msg"
-              @on-try-again="() => router.push('/signup')"
-            ></ErrorVerifyCard>
+              <SuccessVerifyCard
+                v-if="component === SuccessVerifyCard.name"
+                @on-signin="
+                  () => router.push({ path: '/signin', query: { lang } })
+                "
+              ></SuccessVerifyCard>
+
+              <ErrorVerifyCard
+                v-if="component === ErrorVerifyCard.name"
+                :msg="errs.msg"
+                @on-try-again="() => router.push('/signup')"
+              ></ErrorVerifyCard>
+            </div>
           </div>
         </div>
       </div>

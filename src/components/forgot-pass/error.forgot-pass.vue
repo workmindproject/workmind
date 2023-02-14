@@ -1,12 +1,12 @@
 <script lang="ts">
-export default { name: "ErrorSignupForm" };
+export default { name: "ErrorForgotPass" };
 </script>
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 import { TransitionRoot } from "@headlessui/vue";
 import { $tsl } from "@/components/translate/content.translate";
 import IconInfo from "../icons/IconInfo.vue";
-import IconGmail from "../icons/IconGmail.vue";
+import IconAlert from "../icons/IconAlert.vue";
 
 const props = defineProps<{
   msg?: string;
@@ -19,9 +19,6 @@ const emit = defineEmits<{
 
 function submitTryAgain() {
   emit("on-try-again");
-}
-function submitGoogleHandler() {
-  emit("on-signup-google");
 }
 </script>
 
@@ -37,9 +34,9 @@ function submitGoogleHandler() {
     leave-to="translate-x-full opacity-0"
   >
     <div class="grid grid-flow-row gap-10">
-      <div class="">
+      <div class="text-center">
         <h1 class="text-2xl font-bold">
-          {{ $tsl("Not ready") }}
+          {{ $tsl("Reset password") }}
         </h1>
       </div>
 

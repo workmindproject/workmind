@@ -21,6 +21,12 @@ function submitTryAgain() {
 
 <template>
   <div class="grid grid-flow-row gap-10">
+    <div class="text-center">
+      <h1 class="text-2xl font-bold">
+        {{ $tsl("Verify your email") }}
+      </h1>
+    </div>
+
     <div
       class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-xl bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
       role="alert"

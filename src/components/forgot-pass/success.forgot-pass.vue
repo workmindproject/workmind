@@ -1,5 +1,5 @@
 <script lang="ts">
-export default { name: "SuccessVerifyCard" };
+export default { name: "SuccessForgotPass" };
 </script>
 
 <script setup lang="ts">
@@ -27,7 +27,7 @@ const emits = defineEmits<{
 
     <div class="text-center">
       <p class="">
-        {{ $tsl("Your mail has been verified.") }}
+        {{ $tsl("Your new password has been set. You can now sign in using the new password.") }}
       </p>
 
       <p class="">

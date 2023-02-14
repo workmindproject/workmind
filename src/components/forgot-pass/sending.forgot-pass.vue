@@ -1,10 +1,11 @@
 <script lang="ts">
-export default { name: "VerifySignupForm" };
+export default { name: "SendingForgotPass" };
 </script>
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 import { TransitionRoot } from "@headlessui/vue";
 import { $tsl } from "../translate/content.translate";
+import IconSendingEmail from "../icons/IconSendingEmail.vue";
 
 const props = defineProps<{
   email: string;
@@ -31,16 +32,20 @@ function submitSignup() {
     leave-to="translate-x-full opacity-0"
   >
     <div class="grid grid-flow-row gap-10">
-      <div class="grid grid-flow-row gap-3 text-center">
-        <h1 class="text-2xl font-bold">{{ $tsl("Verify your email") }}</h1>
-        <div>
-          <p>{{ $tsl("We just sent a 6-digit code to") }}</p>
-          <a
-            :href="`https://mail.google.com/mail/u/${props.email}/#inbox`"
-            class="text-secondary hover:text-primary"
-            >{{ props.email }}</a
-          >
-          <p>{{ $tsl("Please enter the verification code below.") }}</p>
+      <div class="grid grid-flow-row gap-3">
+        <div class="w-3/12 rounded-full m-auto">
+          <IconSendingEmail></IconSendingEmail>
+        </div>
+        <h1 class="text-2xl font-bold uppercase text-center">
+          {{ $tsl("email sent!") }}
+        </h1>
+        <div class="text-center">
+          <p>
+            {{ $tsl("Please check your inbox and click") }}
+          </p>
+          <p>
+            {{ $tsl("the included link to reset your password.") }}
+          </p>
         </div>
       </div>
 
@@ -57,8 +62,11 @@ function submitSignup() {
       </div>
 
       <div class="text-center opacity-80">
-        <p>{{ $tsl("Didn't receive an email? Check your spam folder") }}</p>
-        <p>{{ $tsl("or resend code in") }} 28s.</p>
+        <p>{{ $tsl("Didn't receive an email?") }}</p>
+        <p>
+          {{ $tsl("Check your spam folder or") }}
+          <a href="mail://">{{ $tsl("contact us") }}</a>
+        </p>
       </div>
     </div>
   </TransitionRoot>
