@@ -1,9 +1,10 @@
 <script lang="ts">
-export default { name: "PasswordSignupForm" };
+export default { name: "PasswordSignupForm", components: { IconEye } };
 </script>
 <script setup lang="ts">
 import { TransitionRoot } from "@headlessui/vue";
 import { ref, reactive, watch } from "vue";
+import IconEye from "../icons/IconEye.vue";
 import { $tsl } from "../translate/content.translate";
 import { ErrorCode } from "../translate/error.translate";
 
@@ -12,7 +13,8 @@ const props = defineProps<{
   email?: string;
 }>();
 
-const password2 = ref("");
+const passwordRec = reactive({ value: "", isPlain: false });
+const password2Rec = reactive({ value: "", isPlain: false });
 
 const emit = defineEmits<{
   (event: "update:email", v: string): void;
@@ -28,14 +30,15 @@ watch(props, (newValue, oldValue) => {
   else errs.email = "";
   if (!props.password) errs.password = "empty";
   else errs.password = "";
-  if (password2.value && props.password !== password2.value)
+  if (password2Rec.value && props.password !== password2Rec.value)
     errs.password2 = "diff-password";
   else errs.password2 = "";
 });
 
-watch(password2, (newValue, oldValue) => {
-  if (!password2.value) errs.password2 = "empty";
-  else if (props.password !== password2.value) errs.password2 = "diff-password";
+watch(password2Rec, (newValue, oldValue) => {
+  if (!password2Rec.value) errs.password2 = "empty";
+  else if (props.password !== password2Rec.value)
+    errs.password2 = "diff-password";
   else errs.password2 = "";
 });
 
@@ -89,20 +92,33 @@ function submitEditEmail() {
         <div class="grid grid-flow-row gap-3">
           <!-- Password input -->
           <div>
-            <input
-              type="password"
-              :value="password"
-              @input="(e: any) => emit('update:password', e.target.value)"
-              class="block w-full p-4 text-content border rounded-xl bg-gray-50 sm:text-md focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-secondary dark:focus:border-secondary"
-              :class="
-                errs.password
-                  ? 'border-red-600 dark:border-red-500'
-                  : 'border-gray-300 dark:border-gray-600'
-              "
-              :placeholder="$tsl('Enter your password')"
-              minLength="{6}"
-              required
-            />
+            <div class="relative">
+              <input
+                :type="passwordRec.isPlain ? 'text' : 'password'"
+                :value="password"
+                @input="(e: any) => emit('update:password', e.target.value)"
+                class="block w-full p-4 text-content border rounded-xl bg-gray-50 sm:text-md focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-secondary dark:focus:border-secondary"
+                :class="
+                  errs.password
+                    ? 'border-red-600 dark:border-red-500'
+                    : 'border-gray-300 dark:border-gray-600'
+                "
+                :placeholder="$tsl('Enter your password')"
+                minLength="{6}"
+                required
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                class="text-content absolute right-2.5 bottom-2.5 focus:ring-4 font-medium rounded-lg text-sm px-2 py-2"
+                @click="passwordRec.isPlain = !passwordRec.isPlain"
+              >
+                <IconEye
+                  class="w-5 text-gray-500 dark:text-gray-400"
+                  :open="!passwordRec.isPlain"
+                ></IconEye>
+              </button>
+            </div>
             <span
               v-if="errs.password === 'empty'"
               class="mt-2 text-sm text-red-600 dark:text-red-500"
@@ -111,19 +127,33 @@ function submitEditEmail() {
           </div>
 
           <div>
-            <input
-              type="password"
-              v-model="password2"
-              class="block w-full p-4 text-content border rounded-xl bg-gray-50 sm:text-md focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-secondary dark:focus:border-secondary"
-              :class="
-                errs.password2
-                  ? 'border-red-600 dark:border-red-500'
-                  : 'border-gray-300 dark:border-gray-600'
-              "
-              :placeholder="$tsl('Confirm password')"
-              minLength="{6}"
-              required
-            />
+            <div class="relative">
+              <input
+                :type="password2Rec.isPlain ? 'text' : 'password'"
+                v-model="password2Rec.value"
+                class="block w-full p-4 text-content border rounded-xl bg-gray-50 sm:text-md focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-secondary dark:focus:border-secondary"
+                :class="
+                  errs.password2
+                    ? 'border-red-600 dark:border-red-500'
+                    : 'border-gray-300 dark:border-gray-600'
+                "
+                :placeholder="$tsl('Confirm password')"
+                minLength="{6}"
+                required
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                class="text-content absolute right-2.5 bottom-2.5 focus:ring-4 font-medium rounded-lg text-sm px-2 py-2"
+                @click="password2Rec.isPlain = !password2Rec.isPlain"
+              >
+                <IconEye
+                  class="w-5 text-gray-500 dark:text-gray-400"
+                  :open="!password2Rec.isPlain"
+                ></IconEye>
+              </button>
+            </div>
+
             <span
               v-if="errs.password2 === 'empty'"
               class="mt-2 text-sm text-red-600 dark:text-red-500"

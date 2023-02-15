@@ -14,6 +14,11 @@ const router = createRouter({
   },
   routes: [
     {
+      path: "/",
+      name: "home",
+      component: () => import("./tasks.module/tasks.view.vue"),
+    },
+    {
       path: "/signin",
       name: "signin",
       component: () => import("./signin.module/signin.view.vue"),
@@ -48,11 +53,6 @@ const router = createRouter({
       name: "confirm-password",
       component: () => import("./forgot-pass.module/confirm-pass.view.vue"),
       meta: { isPublic: true },
-    },
-    {
-      path: "/",
-      name: "home",
-      component: () => import("./tasks.module/tasks.view.vue"),
     },
     {
       path: "/tasks",

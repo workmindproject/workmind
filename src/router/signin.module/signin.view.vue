@@ -1,25 +1,25 @@
 <script setup lang="ts">
 import { ErrorCode } from "@/components/translate/error.translate";
 import { $tsl } from "@/components/translate/content.translate";
-import IconLogo from "@/components/icons/IconLogo.vue";
 import { TransitionRoot } from "@headlessui/vue";
 import { reactive, ref, watch } from "vue";
 import router from "..";
 import { useSigninStore } from "./signin.store";
 import DefaultTopbar from "@/components/nav/default.topbar.vue";
+import IconEye from "@/components/icons/IconEye.vue";
 
 const signinStore = useSigninStore();
 const errs = reactive({ msg: "", email: "", password: "" });
 const emailRef = ref("");
-const passwordRef = ref("");
+const passwordRec = reactive({ value: "", isPlain: false });
 
 watch(emailRef, () => {
   if (!emailRef.value) errs.email = ErrorCode("Email is required");
   else errs.email = "";
 });
 
-watch(passwordRef, () => {
-  if (!passwordRef.value) errs.password = ErrorCode("Password is required");
+watch(passwordRec, () => {
+  if (!passwordRec.value) errs.password = ErrorCode("Password is required");
   else errs.password = "";
 });
 
@@ -27,7 +27,7 @@ async function submitHandler() {
   try {
     if (errs.email) return;
     if (errs.password) return;
-    await signinStore.signinPassword(emailRef.value, passwordRef.value);
+    await signinStore.signinPassword(emailRef.value, passwordRec.value);
     router.push("/");
   } catch (e: any) {
     console.error(e);
@@ -94,18 +94,33 @@ async function submitHandler() {
 
                     <!-- Password input -->
                     <div>
-                      <input
-                        v-model="passwordRef"
-                        type="password"
-                        class="block w-full p-4 text-content border rounded-xl bg-gray-50 sm:text-md focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-secondary dark:focus:border-secondary"
-                        :class="
-                          errs.password
-                            ? 'border-red-600 dark:border-red-500'
-                            : 'border-gray-300 dark:border-gray-600'
-                        "
-                        :placeholder="$tsl('Enter your password')"
-                        minLength="{6}"
-                      />
+                      <div class="relative">
+                        <input
+                          v-model="passwordRec.value"
+                          :type="passwordRec.isPlain ? 'text' : 'password'"
+                          class="block w-full p-4 text-content border rounded-xl bg-gray-50 sm:text-md focus:ring-secondary focus:border-secondary dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-secondary dark:focus:border-secondary"
+                          :class="
+                            errs.password
+                              ? 'border-red-600 dark:border-red-500'
+                              : 'border-gray-300 dark:border-gray-600'
+                          "
+                          :placeholder="$tsl('Enter your password')"
+                          minLength="{6}"
+                          required
+                          autocomplete="off"
+                        />
+
+                        <button
+                          type="button"
+                          class="text-content absolute right-2.5 bottom-2.5 focus:ring-4 font-medium rounded-lg text-sm px-2 py-2"
+                          @click="passwordRec.isPlain = !passwordRec.isPlain"
+                        >
+                          <IconEye
+                            class="w-5 text-gray-500 dark:text-gray-400"
+                            :open="!passwordRec.isPlain"
+                          ></IconEye>
+                        </button>
+                      </div>
                       <span
                         v-if="errs.password"
                         class="mt-2 text-sm text-red-600 dark:text-red-500"
