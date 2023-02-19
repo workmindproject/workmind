@@ -1,14 +1,13 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import { useCurrentUser, useFirebaseAuth } from "vuefire";
+import { getCurrentUser, useCurrentUser, useFirebaseAuth } from "vuefire";
 
 export const useAuthStore = defineStore("auth", () => {
-  // const auth = useFirebaseAuth();
-  const currentUser = () => {
-    const user = useCurrentUser();
-    console.log("user:", user.value);
-    return user.value;
+  const auth = useFirebaseAuth();
+  const currentUser = async () => {
+    const user = await getCurrentUser();
+    console.log("user:", user);
+    return user;
   };
-
   return { currentUser };
 });

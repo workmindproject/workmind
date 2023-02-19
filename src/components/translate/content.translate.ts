@@ -50,7 +50,12 @@ const contents: Record<string, string> = {
   "Reset Password": "Reset Password",
   "Your new password must be different from three previous passwords.": "Your new password must be different from three previous passwords.",
   "Confirm password": "Confirm password",
-  "Reset password": "Reset password"
+  "Reset password": "Reset password",
+  "Welcome to Workmind": "Welcome to Workmind",
+  "Work productively with to-do-list, time tracking, calendar, and work focus.": "Work productively with to-do-list, time tracking, calendar, and work focus.",
+  "ENTER YOUR NAME TO START": "ENTER YOUR NAME TO START",
+  "Enter your name": "Enter your name",
+  "Let's go": "Let's go"
 };
 
 export function $tsl(key: string) {

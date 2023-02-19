@@ -5,7 +5,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useForgotPassStore } from "./forgot-pass.store";
 import { ErrorCode } from "@/components/translate/error.translate";
 import { $tsl } from "@/components/translate/content.translate";
-import DefaultTopbar from "@/components/nav/default.topbar.vue";
+import HomeTopbar from "@/components/nav/home.topbar.vue";
 import EmailForgotPass from "@/components/forgot-pass/email.forgot-pass.vue";
 import SendingForgotPass from "@/components/forgot-pass/sending.forgot-pass.vue";
 import ErrorForgotPass from "@/components/forgot-pass/error.forgot-pass.vue";
@@ -68,7 +68,7 @@ state.value = route.query.step
 <template>
   <div class="h-screen m-auto text-content">
     <div class="grid grid-flow-row md:gap-20">
-      <DefaultTopbar></DefaultTopbar>
+      <HomeTopbar></HomeTopbar>
 
       <div class="flex justify-center items-center flex-wrap">
         <div class="max-w-[480px] min-w-xs md:w-8/12 lg:w-5/12">

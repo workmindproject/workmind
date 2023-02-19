@@ -6,7 +6,7 @@ import ErrorVerifyCard from "@/components/verify/error.verify-card.vue";
 import Loading from "@/components/loading/loading.vue";
 import { useVerifyStore } from "./verify.store";
 import { ErrorCode } from "@/components/translate/error.translate";
-import DefaultTopbar from "@/components/nav/default.topbar.vue";
+import HomeTopbar from "@/components/nav/home.topbar.vue";
 import { $tsl } from "@/components/translate/content.translate";
 
 const router = useRouter();
@@ -42,7 +42,7 @@ setTimeout(() => {
 <template>
   <div class="h-screen m-auto text-content">
     <div class="grid grid-flow-row md:gap-20">
-      <DefaultTopbar></DefaultTopbar>
+      <HomeTopbar></HomeTopbar>
 
       <div class="flex justify-center items-center flex-wrap">
         <div class="max-w-[480px] min-w-xs md:w-8/12 lg:w-5/12">

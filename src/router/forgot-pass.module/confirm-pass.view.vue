@@ -3,7 +3,7 @@ import { ref, reactive, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Loading from "@/components/loading/loading.vue";
 import { ErrorCode } from "@/components/translate/error.translate";
-import DefaultTopbar from "@/components/nav/default.topbar.vue";
+import HomeTopbar from "@/components/nav/home.topbar.vue";
 import { $tsl } from "@/components/translate/content.translate";
 import { useForgotPassStore } from "./forgot-pass.store";
 import PasswordForgotPass from "@/components/forgot-pass/password.forgot-pass.vue";
@@ -72,7 +72,7 @@ component.value = PasswordForgotPass.name;
 <template>
   <div class="h-screen m-auto text-content">
     <div class="grid grid-flow-row md:gap-20">
-      <DefaultTopbar></DefaultTopbar>
+      <HomeTopbar></HomeTopbar>
 
       <div class="flex justify-center items-center flex-wrap">
         <div class="max-w-[480px] min-w-xs md:w-8/12 lg:w-5/12">

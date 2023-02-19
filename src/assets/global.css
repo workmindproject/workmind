@@ -38,48 +38,54 @@ You must add the next lines into global.css
 @tailwind utilities;
 
 @font-face {
-  font-family: PoppinsBlack;
+  font-family: Poppins;
   src: url("../Poppins/Poppins-Black.ttf");
+  font-weight: black;
 }
 @font-face {
-  font-family: PoppinsBold;
+  font-family: Poppins;
   src: url("../Poppins/Poppins-Bold.ttf");
+  font-weight: bold;
 }
 @font-face {
-  font-family: PoppinsExtraBold;
+  font-family: Poppins;
   src: url("../Poppins/Poppins-ExtraBold.ttf");
+  font-weight: extrabold;
 }
 @font-face {
-  font-family: PoppinsExtraLight;
+  font-family: Poppins;
   src: url("../Poppins/Poppins-ExtraLight.ttf");
+  font-weight: extralight;
 }
 @font-face {
-  font-family: PoppinsItalic;
+  font-family: Poppins;
   src: url("../Poppins/Poppins-Italic.ttf");
+  font-weight: italic;
 }
 @font-face {
-  font-family: PoppinsLight;
+  font-family: Poppins;
   src: url("../Poppins/Poppins-Light.ttf");
+  font-weight: light;
 }
 @font-face {
-  font-family: PoppinsMedium;
+  font-family: Poppins;
   src: url("../Poppins/Poppins-Medium.ttf");
+  font-weight: medium;
+}
+@font-face {
+  font-family: Poppins;
+  src: url("../Poppins/Poppins-Thin.ttf");
+  font-weight: thin;
+}
+@font-face {
+  font-family: Poppins;
+  src: url("../Poppins/Poppins-SemiBold.ttf");
+  font-weight: semibold;
 }
 @font-face {
   font-family: Poppins;
   src: url("../Poppins/Poppins-Regular.ttf");
-}
-@font-face {
-  font-family: PoppinsRegular;
-  src: url("../Poppins/Poppins-Regular.ttf");
-}
-@font-face {
-  font-family: PoppinsThin;
-  src: url("../Poppins/Poppins-Thin.ttf");
-}
-@font-face {
-  font-family: PoppinsSemiBold;
-  src: url("../Poppins/Poppins-SemiBold.ttf");
+  font-weight: regular;
 }
 
 

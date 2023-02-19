@@ -1,5 +1,5 @@
 <script lang="ts">
-export default { name: "DefaultTopbar" };
+export default { name: "HomeTopbar" };
 </script>
 <script setup lang="ts">
 import { $tsl } from "@/components/translate/content.translate";

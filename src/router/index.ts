@@ -16,7 +16,32 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: () => import("./tasks.module/tasks.view.vue"),
+      component: () => import("./workspace.module/wellcome-workspace.view.vue"),
+    },
+    {
+      path: "/:workspace",
+      name: "tasks",
+      component: () => import("./task.module/task.view.vue"),
+    },
+    {
+      path: "/:workspace/today",
+      name: "today",
+      component: () => import("./task.module/task.view.vue"),
+    },
+    {
+      path: "/:workspace/calendar",
+      name: "calendar",
+      component: () => import("./coming-soon.module/comming-soon.view.vue"),
+    },
+    {
+      path: "/:workspace/booking",
+      name: "booking",
+      component: () => import("./coming-soon.module/comming-soon.view.vue"),
+    },    
+    {
+      path: "/:workspace/integration",
+      name: "integration",
+      component: () => import("./coming-soon.module/comming-soon.view.vue"),
     },
     {
       path: "/signin",
@@ -53,11 +78,6 @@ const router = createRouter({
       name: "confirm-password",
       component: () => import("./forgot-pass.module/confirm-pass.view.vue"),
       meta: { isPublic: true },
-    },
-    {
-      path: "/tasks",
-      name: "tasks",
-      component: () => import("./tasks.module/tasks.view.vue"),
     },
     {
       path: "/focus",
