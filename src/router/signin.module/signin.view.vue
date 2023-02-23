@@ -7,7 +7,9 @@ import router from "..";
 import { useSigninStore } from "./signin.store";
 import HomeTopbar from "@/components/nav/home.topbar.vue";
 import IconEye from "@/components/icons/IconEye.vue";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
 const signinStore = useSigninStore();
 const errs = reactive({ msg: "", email: "", password: "" });
 const emailRef = ref("");
@@ -28,7 +30,13 @@ async function submitHandler() {
     if (errs.email) return;
     if (errs.password) return;
     await signinStore.signinPassword(emailRef.value, passwordRec.value);
-    router.push("/");
+    router.push(
+      !route.query?.redirect
+        ? "/"
+        : Array.isArray(route.query.redirect)
+        ? route.query.redirect[0] || "/"
+        : route.query.redirect
+    );
   } catch (e: any) {
     console.error(e);
     errs.msg = ErrorCode(e.code) || e.code;

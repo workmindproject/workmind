@@ -1,6 +1,6 @@
 {
   "name": "workmind-web",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -17,6 +17,7 @@
   "dependencies": {
     "@headlessui/tailwindcss": "0.1.2",
     "@headlessui/vue": "1.7.8",
+    "@vueuse/core": "^9.13.0",
     "firebase": "9.17.1",
     "flowbite": "^1.6.3",
     "pinia": "~2.0",

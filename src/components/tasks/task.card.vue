@@ -1,32 +1,106 @@
 <script lang="ts">
-export default { name: "Task" };
+export default { name: "TaskCard" };
 </script>
 <script setup lang="ts">
-const props = defineProps<{ msg?: string }>();
+import IconStart from "@/components/icons/IconStart.vue";
+import IconClear from "@/components/icons/IconClear.vue";
+import InfinityTextarea from "@/components/input/infinity-textarea.vue";
+
+const props = defineProps<{
+  title: string;
+  note?: string;
+  labels?: string[];
+  workspace?: string;
+  targetAt?: Date;
+  createdAt?: Date;
+  closedAt?: Date;
+}>();
+
+const emits = defineEmits<{
+  (event: "update:title", v: string): void;
+  (event: "update:note", v: string): void;
+  (event: "update:labels", v: string[]): void;
+  (event: "update:workspace", v: string): void;
+  (event: "update:targetAt", v: string): void;
+  (event: "update:closedAt", v: string): void;
+}>();
+
+function clearHandler() {
+  emits("update:title", "");
+  // emits("on-clear");
+}
 </script>
 
 <template>
   <div class="grid grid-flow-row gap-3">
-    <div class="m-auto">
-      <svg
-        aria-hidden="true"
-        role="status"
-        class="inline w-24 h-24 mr-3 text-white animate-spin fill-primary"
-        viewBox="0 0 100 101"
-        fill="currentColor"
-        xmlns="http://www.w3.org/2000/svg"
+    <div class="grid grid-flow-col gap-1 text-xs justify-start">
+      <span class="whitespace-nowrap text-primary font-bold rounded-full">
+        #{{ props.workspace }}</span
       >
-        <path
-          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-          fill="none"
-        />
-        <path
-          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-        />
-      </svg>
     </div>
-    <p class="text-center">
-      {{ props.msg || "Verifing ..." }}
-    </p>
+
+    <div class="grid grid-flow-col gap-3 items-center justify-start">
+      <div class="self-start">
+        <input
+          id="helper-checkbox"
+          aria-describedby="helper-checkbox-text"
+          type="checkbox"
+          value=""
+          class="w-6 h-6 text-success bg-white border-dashed border-2 border-secondary focus:border-dashed rounded-full focus:ring-transparent dark:focus:ring-transparent dark:bg-gray-700 dark:border-gray-600 hover:cursor-pointer"
+        />
+      </div>
+
+      <div class="self-start grid grid-flow-row gap-3">
+        <div class="relative w-full">
+          <InfinityTextarea
+            id="title"
+            :value="title"
+            @input="(e: any) => emits('update:title', e.target.value)"
+            class="resize-none block p-0 w-96 text-medium text-gray-900 rounded-lg bg-transparent border-transparent focus:ring-transparent focus:border-transparent dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
+            placeholder="Write your thoughts here..."
+            rows="1"
+          ></InfinityTextarea>
+          <button
+            type="button"
+            class="absolute right-0 bottom-0 ml-3 hover:opacity-100 transition delay-150 hover:scale-150 duration-300 empty:translate-x-2 empty:opacity-0"
+            @click="clearHandler"
+          >
+            <IconClear
+              v-if="title"
+              class="w-5 text-content dark:text-gray-400"
+            ></IconClear>
+          </button>
+        </div>
+
+        <div class="grid grid-flow-col gap-1 text-xs text-center justify-start">
+          <span
+            v-for="label in labels"
+            class="whitespace-nowrap bg-red-100 text-red-800 font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
+            >{{ label }}</span
+          >
+        </div>
+      </div>
+
+      <div
+        class="transition delay-150 hover:scale-150 duration-300 empty:translate-x-2 empty:opacity-0"
+      >
+        <div
+          class="self-start grid grid-flow-row gap-1 justify-items-center justify-self-end"
+        >
+          <button
+            type="button"
+            class="w-7 text-white text-center rounded-full p-2 inline-flex bg-secondary hover:bg-primary focus:ring-transparent dark:bg-secondary dark:hover:bg-primary"
+          >
+            <IconStart class="w-7"></IconStart>
+            <span class="sr-only">Icon description</span>
+          </button>
+          <span
+            class="bg-gray-200 text-content text-xs px-2 py-0.5 rounded-full dark:bg-gray-700 dark:text-white"
+          >
+            48m
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>

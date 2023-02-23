@@ -16,12 +16,14 @@ module.exports = {
     textColor: {
       'primary': '#F8C011',
       'secondary': '#DBA521',
-      'content': '#20262E'
+      'content': '#20262E',
+      "success": "#219653",
     },
     colors: {
       'primary': '#F8C011',
       'secondary': '#DBA521',
-      'content': '#20262E'
+      'content': '#20262E',
+      "success": "#219653",
     },
   },
   plugins: [

@@ -1,5 +1,6 @@
 import { useAuthStore } from "@/stores/auth.store";
-import { createRouter, createWebHistory } from "vue-router";
+import { usePageStore } from "@/stores/page.store";
+import { createRouter, createWebHistory, useRoute } from "vue-router";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -37,7 +38,7 @@ const router = createRouter({
       path: "/:workspace/booking",
       name: "booking",
       component: () => import("./coming-soon.module/comming-soon.view.vue"),
-    },    
+    },
     {
       path: "/:workspace/integration",
       name: "integration",
@@ -91,8 +92,21 @@ router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
   const user = await authStore.currentUser();
   if (to.meta.isPublic) next();
-  else if (!user) next({ name: "signin" });
+  else if (!user) next({ name: "signin", query: { redirect: to.fullPath } });
   else next();
+});
+
+router.beforeEach(async (to, from, next) => {
+  const workspaceParam = !to.params?.workspace
+    ? null
+    : Array.isArray(to.params.workspace)
+    ? null
+    : to.params.workspace;
+  if (!workspaceParam) return next();
+
+  const pageStore = usePageStore();
+  await pageStore.getCurrentWorkspace(workspaceParam);
+  next();
 });
 
 // router.options.history.listen((to, from, info)=>{

@@ -2,16 +2,39 @@
 export default { name: "Loading" };
 </script>
 <script setup lang="ts">
-const props = defineProps<{ msg?: string }>();
+import { computed, ref } from "vue";
+
+const props = defineProps<{
+  active?: boolean;
+  msg?: string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+}>();
+const sizeRef = computed(() => {
+  switch (props.size) {
+    case "xs":
+      return "w-6 h-6";
+    case "sm":
+      return "w-10 h-10";
+    case "md":
+      return "w-24 h-24";
+    case "lg":
+      return "w-36 h-36";
+    case "xl":
+      return "w-52 h-52";
+    default:
+      return "w-24 h-24";
+  }
+});
 </script>
 
 <template>
-  <div class="grid grid-flow-row gap-3">
+  <div v-if="!!active" class="grid grid-flow-row gap-3">
     <div class="m-auto">
       <svg
         aria-hidden="true"
         role="status"
-        class="inline w-24 h-24 mr-3 text-white animate-spin fill-primary"
+        class="inline mr-3 text-white animate-spin fill-primary"
+        :class="sizeRef"
         viewBox="0 0 100 101"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"

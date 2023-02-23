@@ -55,7 +55,9 @@ const contents: Record<string, string> = {
   "Work productively with to-do-list, time tracking, calendar, and work focus.": "Work productively with to-do-list, time tracking, calendar, and work focus.",
   "ENTER YOUR NAME TO START": "ENTER YOUR NAME TO START",
   "Enter your name": "Enter your name",
-  "Let's go": "Let's go"
+  "Let's go": "Let's go",
+  "Save": "Save",
+  "Enter a new todo": "Enter a new todo",
 };
 
 export function $tsl(key: string) {

@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import IconStart from "@/components/icons/IconStart.vue";
 import Loading from "@/components/loading/loading.vue";
 import HomeTopbar from "@/components/nav/home.topbar.vue";
-import TasksTopbar from "@/components/tasks/tasks.topbar.vue";
 import { $tsl } from "@/components/translate/content.translate";
 import FirstWsCard from "@/components/workspace/first.ws-card.vue";
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useWorkspaceStore } from "./workspace.store";
@@ -18,6 +15,9 @@ const component = ref("");
 async function createWorkspace() {
   try {
     component.value = Loading.name;
+    await workspaceStore.updateCurrentUser({
+      displayName: workspace.value.name,
+    });
     const newWs = await workspaceStore.create(workspace.value);
     router.push(`/${newWs.key}`);
   } catch (e: any) {

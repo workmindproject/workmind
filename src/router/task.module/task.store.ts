@@ -24,6 +24,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
+import { throttleFilter, useThrottle, useThrottleFn } from "@vueuse/core";
 
 type QueryOperators =
   | ">"
@@ -37,34 +38,38 @@ type QueryOperators =
   | "in"
   | "not-in";
 
-export interface WorkspaceDto {
-  name: string;
-  description?: string;
-  labels?: string[];
-  key?: string;
-  date?: Date;
+export interface TaskMetaDto {
+  createdAt?: Date;
+  openedAt?: Date;
+  closedAt?: Date;
+  archivedAt?: Date;
 }
 
-export interface CreateWorkspaceDto {
-  name: string;
-  description?: string;
+export interface TaskDto extends TaskMetaDto {
+  id: string;
+  title: string;
+  note?: string;
   labels?: string[];
-  date?: Date;
+  workspace?: string;
+  targetAt?: Date;
+  createdAt?: Date;
+  closedAt?: Date;
 }
 
-export const useWorkspaceStore = defineStore("workspaces", () => {
+export interface CreateTaskDto {
+  id?: string;
+  title: string;
+  workspace?: string;
+}
+
+export const useTasksStore = defineStore("tasks", () => {
   const firestore = useFirestore();
   const user = useCurrentUser();
-  const workspacesRef = collection(
-    firestore,
-    `workspaces`,
-    "users",
-    `${user?.value?.uid}`
-  );
+  const taskDb = collection(firestore, `tasks`, "users", `${user?.value?.uid}`);
 
-  const workspaces = ref<WorkspaceDto[]>();
+  const taskRef = ref<TaskDto[]>([]);
 
-  // workspacesCollection.withConverter({
+  // taskDb.withConverter({
   //   toFirestore(post: WithFieldValue<any>): DocumentData {
   //     return {};
   //   },
@@ -81,23 +86,28 @@ export const useWorkspaceStore = defineStore("workspaces", () => {
     return updateProfile(user.value!, profile);
   }
 
-  async function create(data: CreateWorkspaceDto) {
-    const keyData = data.name;
-    const dateData = data.date
-      ? Timestamp.fromDate(data.date)
-      : Timestamp.fromDate(new Date());
-    const targetDocRef = doc(workspacesRef, keyData);
-    await setDoc(targetDocRef, {
-      ...data,
-      key: keyData,
-      date: dateData,
-    });
-    const docSnap = await getDoc(targetDocRef);
-    return docSnap.data() as WorkspaceDto;
+  function initId() {
+    const targetDocRef = doc(taskDb);
+    return targetDocRef.id;
   }
 
+  const create = useThrottleFn(
+    async (data: CreateTaskDto) => {
+      console.log({ msg: "useTasksStore.create" });
+      const targetDocRef = doc(taskDb, data.id);
+      delete data.id;
+      await setDoc(targetDocRef, data);
+      const docSnap = await getDoc(targetDocRef);
+      const docData = docSnap.data() as TaskDto;
+      taskRef.value.push(docData);
+      return docData;
+    },
+    300,
+    true
+  );
+
   async function find(
-    filter: [keyof CreateWorkspaceDto, QueryOperators, any][],
+    filter: [keyof TaskDto, QueryOperators, any][],
     sort?: { field: string; desc: boolean },
     start?: unknown[],
     size: number = 1
@@ -112,13 +122,14 @@ export const useWorkspaceStore = defineStore("workspaces", () => {
     if (start) queryConstraints.push(startAt(start));
     if (size) queryConstraints.push(limit(size));
 
-    const q = query(workspacesRef, ...queryConstraints);
+    const q = query(taskDb, ...queryConstraints);
     const qSnapshot = await getDocs(q);
-    const results: WorkspaceDto[] = [];
-    qSnapshot.forEach((doc) => results.push(doc.data() as WorkspaceDto));
-    workspaces.value = results;
-    return results;
+    qSnapshot.forEach((doc) => {
+      if (!doc.exists()) return;
+      taskRef.value?.push({ ...(doc.data() as TaskDto), id: doc.id });
+    });
+    return taskRef;
   }
 
-  return { create, find, workspaces, updateCurrentUser };
+  return { create, find, tasks: taskRef, updateCurrentUser, initId };
 });

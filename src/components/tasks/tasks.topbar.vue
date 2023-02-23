@@ -23,11 +23,16 @@ import IconAddSquare from "@/components/icons/IconAddSquare.vue";
 import { ref } from "vue";
 import IconChevron from "../icons/IconChevron.vue";
 import IconCalendarDaily from "../icons/IconCalendarDaily.vue";
-import { useRoute, useRouter } from "vue-router";
 
-const props = defineProps<{ view: 'today' | 'integration' | 'booking' | 'calendar' }>();
+const props = defineProps<{
+  view: "Today Tasks" | "Tasks integration" | "My booking" | "Calendar";
+}>();
+const emits = defineEmits<{
+  (event: "on-view", view: string): void;
+}>();
 
-const selectedPerson = ref();
+const selectedView = ref("");
+selectedView.value = props.view;
 </script>
 
 <template>
@@ -86,10 +91,10 @@ const selectedPerson = ref();
         </div>
 
         <div class="ml-4 lg:ml-6">
-          <Listbox v-model="selectedPerson">
+          <Listbox v-model="selectedView">
             <div class="relative mt-1">
               <ListboxButton
-                class="relative w-full cursor-default rounded-lg bg-white py-2 px-3 text-base text-center sm:text-sm shadow border-2 border-dashed border-primary focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
+                class="relative w-full cursor-default rounded-lg bg-white py-2 px-3 text-base text-center sm:text-sm shadow outline-dashed outline-secondary focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
               >
                 <div class="grid grid-flow-col gap-3">
                   <IconCalendarDaily
@@ -99,7 +104,7 @@ const selectedPerson = ref();
                   ></IconCalendarDaily>
 
                   <span class="block truncate text-base">{{
-                    selectedPerson.name
+                    selectedView
                   }}</span>
 
                   <IconChevron
@@ -131,27 +136,17 @@ const selectedPerson = ref();
                           : 'text-gray-900',
                         'relative cursor-default select-none py-2 pl-10 pr-4',
                       ]"
+                      @click="() => emits('on-view', selectedView)"
                     >
-                      <span
-                        :class="[
-                          selected ? 'font-medium' : 'font-normal',
-                          'block truncate',
-                          'text-base',
-                        ]"
-                        >Today Tasks</span
-                      >
-                      <span
-                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
-                      >
-                        <IconTask
-                          class="h-6 w-6 text-secondary"
-                          aria-hidden="true"
-                        ></IconTask>
-                      </span>
+                      <slot name="catalog.main"></slot>
+                      <!-- <span>Today Tasks</span>
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                          <IconTask class="h-6 w-6 text-secondary" aria-hidden="true"></IconTask>
+                        </span> -->
                     </li>
                   </ListboxOption>
 
-                  <ListboxOption
+                  <!-- <ListboxOption
                     v-slot="{ active, selected }"
                     key="Tasks integration"
                     value="Tasks integration"
@@ -164,6 +159,7 @@ const selectedPerson = ref();
                           : 'text-gray-900',
                         'relative cursor-default select-none py-2 pl-10 pr-4',
                       ]"
+                      @click="() => emits('on-view', selectedView)"
                     >
                       <span
                         :class="[
@@ -197,6 +193,7 @@ const selectedPerson = ref();
                           : 'text-gray-900',
                         'relative cursor-default select-none py-2 pl-10 pr-4',
                       ]"
+                      @click="() => emits('on-view', selectedView)"
                     >
                       <span
                         :class="[
@@ -230,6 +227,7 @@ const selectedPerson = ref();
                           : 'text-gray-900',
                         'relative cursor-default select-none py-2 pl-10 pr-4',
                       ]"
+                      @click="() => emits('on-view', selectedView)"
                     >
                       <span
                         :class="[
@@ -248,7 +246,7 @@ const selectedPerson = ref();
                         ></IconCalendar>
                       </span>
                     </li>
-                  </ListboxOption>
+                  </ListboxOption> -->
                 </ListboxOptions>
               </transition>
             </div>
